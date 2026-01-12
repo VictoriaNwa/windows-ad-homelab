@@ -29,8 +29,10 @@ This lab documents the setup and configuration of a Windows Server 2022 Active D
 ---
 
 ## Status
-Active Directory environment successfully deployed.
-DHCP and DNS functioning correctly.
-Client joined and authenticated using AD credentials.
-Group Policy Objects (GPOs) applied successfully.
-Domain users can access resources based on permissions.
+- Active Directory domain deployed and operational.  
+- DNS and DHCP configured and verified on DC01.  
+- WS01 successfully joined to the domain and authenticating with domain accounts.  
+- GPOs created, linked, and tested (shortcut deployment and security filtering).  
+- NTFS permissions configured to enforce least-privilege access.  
+- HelpDesk users can access authorized tools; Staff users restricted as expected.  
+
