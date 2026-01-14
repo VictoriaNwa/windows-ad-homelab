@@ -66,18 +66,10 @@ Once again, the root cause turned out to be the **two network adapters** issue. 
 - Adapter 1: Host-Only adapter (used for domain communication with DC01)
 - Adapter 2: NAT adapter (which I'd recently added so WS01 could access Splunk via the Internet)
 
-Because both adapters were active, Windows sometimes attempted to use the wrong network path (Adapter 2), which could not reach DC01 or its DNS services. I noticed this, after running command (ipconfig /all) on WS01 command line, to see where IPv4 addressed to and it was using an APIPA address (which is an address given when windows can't find the DHCP server). ADUC requires real-time access to the domain controller, so it failed instantly with “The server is not operational.”
+Because both adapters were active, Windows sometimes attempted to use the wrong network path (Adapter 2), which could not reach DC01 or its DNS services. I noticed this, after running command (ipconfig /all) on WS01 command line, to see where IPv4 addressed to and it was using an APIPA address (which is an address given when windows can't find the DHCP server). 
 
-**Fix:**  
-Forced WS01 to use the Host-Only adapter for domain/DNS traffic by adjusting network configuration:
-1. On WS01, opened Network Connections -> Change adapter options
-2. On Adapter 1 (Host-Only):  
-   - Set DNS server to the domain controller’s IP -> 192.168.56.10
-3. On Adapter 2 (NAT):  
-   - Removed or cleared DNS settings instead of fully disabling because of Splunk usage
-4. Restarted WS01 to refresh routing and DNS
-5. Opened ADUC again and the error was gone
+**Fix:** Simply disabled NAT adapter on WS01. AD tools now correctly route all domain traffic through the Host-Only adapter. 
 
-AD tools now correctly route all domain traffic through the Host-Only adapter, while Splunk access can still use the NAT adapter when needed. 
+Will figure out how to allow the two to coinside later on.
 
 However, I am considering installing Splunk onto my actual laptop and using forwarders on both DC01 and WS01 to avoid this issue altogether, and I think it would be more of a realistic setup anyways. Will update!
