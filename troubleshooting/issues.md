@@ -53,6 +53,7 @@ It worked before because WS01 was using cached credentials. When I tried logging
 **Fix:** Reduced resource allocation so my laptop could handle it:
 1. Lowered RAM for both VMs to 2048 MB
 2. Reduced CPU cores on both VMs to 1 core each
+3. Also stopped running both simultaneously often.
 
 After adjusting these values, the freezing stopped and performance stabilized for both the host and the VMs more regularly.
 Once I did this, the freezing reduced and both machines performed more consistently without dragging down the host.
