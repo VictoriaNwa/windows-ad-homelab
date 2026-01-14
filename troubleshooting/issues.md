@@ -55,8 +55,7 @@ It worked before because WS01 was using cached credentials. When I tried logging
 2. Reduced CPU cores on both VMs to 1 core each
 3. Also stopped running both simultaneously often.
 
-After adjusting these values, the freezing stopped and performance stabilized for both the host and the VMs more regularly.
-Once I did this, the freezing reduced and both machines performed more consistently without dragging down the host.
+Once I did this, the freezing reduced and both machines performed more consistently without dragging down the host. But honestly, keeping everything balanced in a small lab like this is an ongoing battle. It takes a lot of trial, error, and tweaking to get things stable.
 
 --- 
 
