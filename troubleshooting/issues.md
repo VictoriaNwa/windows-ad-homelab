@@ -56,3 +56,28 @@ It worked before because WS01 was using cached credentials. When I tried logging
 
 After adjusting these values, the freezing stopped and performance stabilized for both the host and the VMs more regularly.
 Once I did this, the freezing reduced and both machines performed more consistently without dragging down the host.
+
+--- 
+
+## 6. ADUC Error: “The server is not operational” When Trying to Open Active Directory Tools on WS01
+**Problem:**  When I opened Active Directory Users and Computers (ADUC) on WS01, I received the error the above. This happened even though WS01 was already logged in and seemed to be connected to the domain. 
+
+Once again, the root cause turned out to be the **two network adapters** issue. WS01 had two active at the same time:
+- Adapter 1: Host-Only adapter (used for domain communication with DC01)
+- Adapter 2: NAT adapter (which I'd recently added so WS01 could access Splunk via the Internet)
+
+Because both adapters were active, Windows sometimes attempted to use the wrong network path (Adapter 2), which could not reach DC01 or its DNS services. I noticed this, after running command (ipconfig /all) on WS01 command line, to see where IPv4 addressed to and it was using an APIPA address (which is an address given when windows can't find the DHCP server). ADUC requires real-time access to the domain controller, so it failed instantly with “The server is not operational.”
+
+**Fix:**  
+Forced WS01 to use the Host-Only adapter for domain/DNS traffic by adjusting network configuration:
+1. On WS01, opened Network Connections -> Change adapter options
+2. On Adapter 1 (Host-Only):  
+   - Set DNS server to the domain controller’s IP -> 192.168.56.10
+3. On Adapter 2 (NAT):  
+   - Removed or cleared DNS settings instead of fully disabling because of Splunk usage
+4. Restarted WS01 to refresh routing and DNS
+5. Opened ADUC again and the error was gone
+
+AD tools now correctly route all domain traffic through the Host-Only adapter, while Splunk access can still use the NAT adapter when needed. 
+
+However, I am considering installing Splunk onto my actual laptop and using forwarders on both DC01 and WS01 to avoid this issue altogether, and I think it would be more of a realistic setup anyways. Will update!
