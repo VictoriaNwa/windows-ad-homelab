@@ -1,23 +1,34 @@
 ## Network Configuration
 
-### DC01 (Static)
-- IP Address: 192.168.56.10
-- Subnet Mask: 255.255.255.0
-- Default Gateway: 192.168.56.1
-- DNS Server: 192.168.56.10
+### DC (Static – Internal Network)
+IP Address: 192.168.0.1  
+Subnet Mask: 255.255.255.0  
+Default Gateway: (leave blank)  
+DNS Server: 192.168.0.1 or 127.0.0.1  
+(DC can use either its own IP or loopback for DNS)
 
-**DHCP Scope:**
-- Start IP: 192.168.56.100
-- End IP: 192.168.56.200
-- Subnet Mask: 255.255.255.0
+---
 
-### WS01
-**Obtained via DHCP:**
-- IP Address: 192.168.56.100 (dynamic)
-- DNS Server: 192.168.56.10
-- DHCP Server: 192.168.56.10
-- Primary DNS Suffix: lab.local
+## DHCP Scope (Configured on DC)
+Start IP: 192.168.0.100  
+End IP: 192.168.0.200  
+Subnet Mask: 255.255.255.0  
+Default Gateway: 192.168.0.1  
+DNS Server: 192.168.0.1  
 
-### VirtualBox Network Notes
-- VirtualBox DHCP **disabled**
-- Domain Controller responsible for DHCP/DNS
+---
+
+### Client1 (Obtained via DHCP)
+IP Address: 192.168.0.100 (Dynamic) 
+Subnet Mask: 255.255.255.0  
+Default Gateway: 192.168.0.1  
+DNS Server: 192.168.0.1  
+Primary DNS Suffix: lab.com  
+
+---
+
+## VirtualBox Network Notes
+- Internal Network used for domain traffic
+- NAT enabled on DC only
+- VirtualBox DHCP disabled
+- DC provides both DNS and DHCP
