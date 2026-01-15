@@ -1,6 +1,6 @@
 # Deploying Wireshark to HelpDesk Using GPO + NTFS
 
-This explains how I deployed Wireshark (downloaded on WS01) in my Active Directory homelab using Group Policy and NTFS permissions. The goal was to make Wireshark available to HelpDesk accounts only while blocking regular staff users. This setup reflects a realistic RBAC workflow.
+This explains how I deployed Wireshark (downloaded on Client1) in my Active Directory homelab using Group Policy and NTFS permissions. The goal was to make Wireshark available to HelpDesk accounts only while blocking regular staff users. This setup reflects a realistic RBAC workflow.
 
 ---
 
@@ -33,7 +33,7 @@ Create a new shortcut with the following values:
 
 - Action: Create
 - Name: Wireshark
-- Target Path: C:\Program Files\Wireshark\Wireshark.exe (based on file path on WS01, since DC01 doesn't have Wireshark installed)
+- Target Path: C:\Program Files\Wireshark\Wireshark.exe (based on file path on Client1, since DC doesn't have Wireshark installed)
 - Location: Desktop
 
 This deploys a Wireshark icon to HelpDesk desktops.
@@ -54,7 +54,7 @@ This ensures the GPO only applies to HelpDesk users.
 
 ## 5. Restrict NTFS Permissions on Wireshark.exe
 
-On WS01, where Wireshark is installed:
+On Client1, where Wireshark is installed:
 
 1. Right-click Wireshark.exe -> Properties -> Security -> Advanced
 2. Disable inheritance and choose “Convert...”
