@@ -24,7 +24,7 @@ This lab documents the setup and configuration of a Windows Server 2022 Active D
 - Name: Client1
 - Iso Image: Windows.iso
 - Same as DC
-- Boot up: WS01 -> Choose language -> NEXT -> Click "Install Now" -> Choose "Windows 10 Pro" -> NEXT -> Accept terms -> NEXT -> Custom -> Empty Drive -> NEXT
+- Boot up: Client1 -> Choose language -> NEXT -> Click "Install Now" -> Choose "Windows 10 Pro" -> NEXT -> Accept terms -> NEXT -> Custom -> Empty Drive -> NEXT
 
 ---
 
