@@ -46,7 +46,7 @@ Problem: Client1's IPv4, when running ipconfig on CLI, used an APIPA address mea
 
 Fix: I ran ipconfig /release and /renew and it switched to IPv4 within DHCP scope.
 
---
+---
 
 ## 6. Client's adapter was missing default gateway
 Problem: When running ipconfig on CLI, Client1's adapter had no default gateway set. The domain controller was registering its NAT adapter IP (10.0.2.15) in DNS instead of the internal network IP (192.168.0.1). This caused clients to resolve the DC to the wrong address, breaking domain join, DNS lookups, and general AD communication.
@@ -59,3 +59,16 @@ Fix:
    - ipconfig /flushdns
    - ipconfig /registerdns
 To refresh and re-register the correct IP
+
+--- 
+
+## 7. Domain unavailable from Client sign-in
+Problem: When attempting to log in as user within domain on Client1 VM, an error generated saying "We can't sign you in with this credential because your domain isn't available..."
+
+Fix:
+1. Checked DC to make sure DNS IP didn't switch again.
+2. Logged into Client1 using account made during installation of VM.
+3. Opened Command Prompt in Administrative mode and ran:
+   - ipconfig (recieved an APIPA address for IPv4)
+   - ipconfig /flushdns
+   - ipconfig /registerdns
