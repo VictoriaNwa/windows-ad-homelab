@@ -23,6 +23,7 @@
    - if IPv4 says 169.254.x.x (APIPA Address)
      - that's the Internal Network
      - Rename: Internal Network
+     - Properties -> Internet Protocol Version 4 (TCP\IPv4) -> "Use the following DNS server addresses:" -> Preferred DNS server: 192.168.0.1
    - the other adapter's IPv4 will most likely start with 10.x.x.x
      - that's the NAT
      - Rename: Internet
